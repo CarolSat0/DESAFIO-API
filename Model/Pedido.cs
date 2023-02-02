@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DESAFIO_API.Dto;
 
 namespace DESAFIO_API.Model
 {
@@ -13,5 +14,17 @@ namespace DESAFIO_API.Model
         public Vendedor Vendedor { get; set; }
         public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }
+
+        public Pedido()
+        {
+
+        }
+
+        public Pedido(CadastroPedidoDTO dto)
+        {
+            Data = dto.Data;
+            VendedorId = dto.VendedorId;
+            ClienteId = dto.ClienteId;
+        }
     }
 }

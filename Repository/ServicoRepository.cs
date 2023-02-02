@@ -21,5 +21,11 @@ namespace DESAFIO_API.Repository
             _context.Servicos.Add(servico);
             _context.SaveChanges();
         }
+
+        public Servico ObterPorId(int id)
+        {
+            var servico = _context.Servicos.Find(id);
+            return servico;
+        }
     }
 }

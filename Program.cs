@@ -1,11 +1,18 @@
 using DESAFIO_API.Context;
+using DESAFIO_API.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<VendasContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoPadrao")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoPadrao")));
+
+builder.Services.AddScoped<VendedorRepository>();
+builder.Services.AddScoped<ClienteRepository>();
+builder.Services.AddScoped<ItemPedidoRepository>();
+builder.Services.AddScoped<PedidoRepository>();
+builder.Services.AddScoped<ServicoRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

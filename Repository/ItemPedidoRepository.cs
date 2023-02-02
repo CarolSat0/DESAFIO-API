@@ -21,5 +21,11 @@ namespace DESAFIO_API.Repository
             _context.ItemPedidos.Add(itemPedido);
             _context.SaveChanges();
         }
+
+        public ItemPedido ObterPorId(int id)
+        {
+            var itempedido = _context.ItemPedidos.Find(id);
+            return itempedido;
+        }
     }
 }

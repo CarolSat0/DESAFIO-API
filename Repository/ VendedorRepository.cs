@@ -21,5 +21,11 @@ namespace DESAFIO_API.Repository
             _context.Vendedores.Add(vendedor);
             _context.SaveChanges();
         }
+
+        public Vendedor ObterPorId(int id)
+        {
+            var vendedor = _context.Vendedores.Find(id);
+            return vendedor;
+        }
     }
 }

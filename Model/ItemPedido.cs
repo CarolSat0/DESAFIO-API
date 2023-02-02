@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DESAFIO_API.Dto;
+
 
 namespace DESAFIO_API.Model
 {
@@ -14,5 +16,18 @@ namespace DESAFIO_API.Model
         public Pedido Pedido { get; set; }
         public int ServicoId { get; set; }
         public Servico Servico { get; set; }
+
+        public ItemPedido()
+        {
+            
+        }
+
+        public ItemPedido(CadastroItemPedidoDTO dto)
+        {
+            Quantidade = dto.Quantidade;
+            Valor = dto.Valor;
+            PedidoId = dto.PedidoId;
+            ServicoId = dto.ServicoId;
+        }
     }
 }
