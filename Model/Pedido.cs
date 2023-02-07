@@ -26,5 +26,12 @@ namespace DESAFIO_API.Model
             VendedorId = dto.VendedorId;
             ClienteId = dto.ClienteId;
         }
+
+        public void MapearAtualizarPedidoDTO(AtualizarPedidoDTO dto)
+        {
+            Data = dto.Data;
+            VendedorId = dto.VendedorId;
+            ClienteId = dto.ClienteId;
+        }
     }
 }

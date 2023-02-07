@@ -27,5 +27,19 @@ namespace DESAFIO_API.Repository
             var pedido = _context.Pedidos.Find(id);
             return pedido;
         }
+
+        public void DeletarPedido(Pedido pedido)
+        {
+            _context.Pedidos.Remove(pedido);
+            _context.SaveChanges();
+        }
+
+        public Pedido AtualizarPedido(Pedido pedido)
+        {
+            _context.Pedidos.Update(pedido);
+            _context.SaveChanges();
+
+            return pedido;
+        }
     }
 }

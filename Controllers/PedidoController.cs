@@ -38,5 +38,21 @@ namespace DESAFIO_API.Controllers
             else
                 return NotFound(new { Mensagem = "Pedido não encontrado"});
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Atualizar(int id, AtualizarPedidoDTO dto)
+        {
+            var pedido = _repository.ObterPorId(id);
+
+            if(pedido is not null)
+            {
+                pedido.MapearAtualizarPedidoDTO(dto);
+                _repository.AtualizarPedido(pedido);
+                return Ok(pedido);
+            }
+            else{
+                return NotFound(new { Mensagem = "Vendedor não encontrado"});
+            }
+        }
     }
 }

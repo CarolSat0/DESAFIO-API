@@ -38,5 +38,21 @@ namespace DESAFIO_API.Controllers
             else
                 return NotFound(new { Mensagem = "Item pedido não encontrado"});
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Atualizar(int id, AtualizarItemPedidoDTO dto)
+        {
+            var itempedido = _repository.ObterPorId(id);
+
+            if(itempedido is not null)
+            {
+                itempedido.MapearAtualizarItemPedidoDTO(dto);
+                _repository.AtualizarItemPedido(itempedido);
+                return Ok(itempedido);
+            }
+            else{
+                return NotFound(new { Mensagem = "Item pedido não encontrado"});
+            }
+        }
     }
 }
