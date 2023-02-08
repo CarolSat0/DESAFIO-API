@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DESAFIO_API.Context;
+using DESAFIO_API.Dto;
 using DESAFIO_API.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace DESAFIO_API.Repository
 {
@@ -16,15 +18,19 @@ namespace DESAFIO_API.Repository
             _context = context;
         }
 
-        public void Cadastrar(Pedido pedido)
+        public Pedido Cadastrar(Pedido pedido)
         {
             _context.Pedidos.Add(pedido);
             _context.SaveChanges();
+
+            return pedido;
         }
 
-        public Pedido ObterPorId(int id)
+        public Pedido AtualizarPedido(Pedido pedido)
         {
-            var pedido = _context.Pedidos.Find(id);
+            _context.Pedidos.Update(pedido);
+            _context.SaveChanges();
+
             return pedido;
         }
 
@@ -34,11 +40,17 @@ namespace DESAFIO_API.Repository
             _context.SaveChanges();
         }
 
-        public Pedido AtualizarPedido(Pedido pedido)
+        public void AtualizarData(Pedido pedido, AtualizarDataPedidoDTO dto)
         {
-            _context.Pedidos.Update(pedido);
-            _context.SaveChanges();
+            pedido.Data = dto.Data;
+            AtualizarPedido(pedido);
+        }
 
+        public Pedido ObterPorId(int id)
+        {
+            var pedido = _context.Pedidos.Include(x => x.Vendedor)
+                                         .Include(x => x.Cliente)
+                                         .FirstOrDefault(x => x.Id == id);
             return pedido;
         }
     }

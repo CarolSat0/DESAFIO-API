@@ -37,18 +37,29 @@ namespace DESAFIO_API.Repository
             return servicos;
         }
 
-        public void DeletarServico(Servico servico)
-        {
-            _context.Servicos.Remove(servico);
-            _context.SaveChanges();
-        }
-
         public Servico AtualizarServico(Servico servico)
         {
             _context.Servicos.Update(servico);
             _context.SaveChanges();
 
             return servico;
+        }
+
+        public void DeletarServico(Servico servico)
+        {
+            _context.Servicos.Remove(servico);
+            _context.SaveChanges();
+        }
+
+        public void AtualizarNome(Servico servico, AtualizarNomeServicoDTO dto)
+        {
+            servico.Nome = dto.Nome;
+            AtualizarServico(servico);
+        }
+        public void AtualizarDescricao(Servico servico, AtualizarDescricaoServicoDTO dto)
+        {
+            servico.Descricao = dto.Descricao;
+            AtualizarServico(servico);
         }
     }
 }

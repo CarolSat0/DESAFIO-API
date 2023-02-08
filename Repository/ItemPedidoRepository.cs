@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DESAFIO_API.Context;
+using DESAFIO_API.Dto;
 using DESAFIO_API.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace DESAFIO_API.Repository
 {
@@ -16,15 +18,27 @@ namespace DESAFIO_API.Repository
             _context = context;
         }
 
-        public void Cadastrar(ItemPedido itemPedido)
+        public ItemPedido Cadastrar(ItemPedido itemPedido)
         {
             _context.ItemPedidos.Add(itemPedido);
             _context.SaveChanges();
+
+            return itemPedido;
         }
 
         public ItemPedido ObterPorId(int id)
         {
-            var itempedido = _context.ItemPedidos.Find(id);
+            var itempedido = _context.ItemPedidos.Include(x => x.Pedido)
+                                                 .Include(x => x.Servico)
+                                                 .FirstOrDefault(x => x.Id == id);
+            return itempedido;
+        }
+
+        public ItemPedido AtualizarItemPedido(ItemPedido itempedido)
+        {
+            _context.ItemPedidos.Update(itempedido);
+            _context.SaveChanges();
+
             return itempedido;
         }
 
@@ -34,12 +48,16 @@ namespace DESAFIO_API.Repository
             _context.SaveChanges();
         }
 
-        public ItemPedido AtualizarItemPedido(ItemPedido itempedido)
+        public void AtualizarQuantidade(ItemPedido itempedido, AtualizarQuantidadeItemPedidoDTO dto)
         {
-            _context.ItemPedidos.Update(itempedido);
-            _context.SaveChanges();
+            itempedido.Quantidade = dto.Quantidade;
+            AtualizarItemPedido(itempedido);
+        }
 
-            return itempedido;
+        public void AtualizarValor(ItemPedido itempedido, AtualizarValorItemPedidoDTO dto)
+        {
+            itempedido.Valor = dto.Valor;
+            AtualizarItemPedido(itempedido);
         }
     }
 }

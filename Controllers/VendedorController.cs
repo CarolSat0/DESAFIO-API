@@ -64,5 +64,50 @@ namespace DESAFIO_API.Controllers
                 return NotFound(new { Mensagem = "Vendedor não encontrado"});
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Deletar(int id)
+        {
+            var vendedor = _repository.ObterPorId(id);
+            if(vendedor is not null)
+            {
+                _repository.DeletarVendedor(vendedor);
+                return NoContent();
+            }
+            else
+            {
+                return NotFound(new { Mensagem = "Vendedor não encontrado"});
+            }
+        }
+
+        [HttpPatch("AtualizarSenha/{id}")]
+        public IActionResult AtualizarSenha(int id, AtualizarSenhaVendedorDTO dto)
+        {
+            var vendedor = _repository.ObterPorId(id);
+            if(vendedor is not null)
+            {
+                _repository.AtualizarSenha(vendedor, dto);
+                return Ok(vendedor);
+            }
+            else
+            {
+                return NotFound(new { Mensagem = "Vendedor não encontrado"});
+            }
+        }
+
+        [HttpPatch("AtualizarNome/{id}")]
+        public IActionResult AtualizarNome(int id, AtualizarNomeVendedorDTO dto)
+        {
+            var vendedor = _repository.ObterPorId(id);
+            if(vendedor is not null)
+            {
+                _repository.AtualizarNome(vendedor, dto);
+                return Ok(vendedor);
+            }
+            else
+            {
+                return NotFound(new { Mensagem = "Vendedor não encontrado"});
+            }
+        }   
     }
 }

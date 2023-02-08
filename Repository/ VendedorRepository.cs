@@ -37,18 +37,30 @@ namespace DESAFIO_API.Repository
             return vendedores;
         }
 
-        public void DeletarVendedor(Vendedor vendedor)
-        {
-            _context.Vendedores.Remove(vendedor);
-            _context.SaveChanges();
-        }
-
         public Vendedor AtualizarVendedor(Vendedor vendedor)
         {
             _context.Vendedores.Update(vendedor);
             _context.SaveChanges();
 
             return vendedor;
+        }
+
+        public void DeletarVendedor(Vendedor vendedor)
+        {
+            _context.Vendedores.Remove(vendedor);
+            _context.SaveChanges();
+        }
+
+        public void AtualizarSenha(Vendedor vendedor, AtualizarSenhaVendedorDTO dto)
+        {
+            vendedor.Senha = dto.Senha;
+            AtualizarVendedor(vendedor);
+        }
+
+        public void AtualizarNome(Vendedor vendedor, AtualizarNomeVendedorDTO dto)
+        {
+            vendedor.Nome = dto.Nome;
+            AtualizarVendedor(vendedor);
         }
     }
 }
